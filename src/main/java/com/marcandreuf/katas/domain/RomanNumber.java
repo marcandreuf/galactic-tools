@@ -18,7 +18,7 @@ public class RomanNumber {
     private static final Map<String, Integer> ROMAN_ARABIC = new HashMap<>();
     private static final Pattern romNumMatcherPattern = Pattern.compile("M|CM|D|CD|C|XC|L|XL|X|IX|V|IV|I");
 
-    static{
+    static {
         ROMAN_ARABIC.put("I", 1);
         ROMAN_ARABIC.put("IV", 4);
         ROMAN_ARABIC.put("V", 5);
@@ -38,11 +38,11 @@ public class RomanNumber {
         this.symbol = symbol;
     }
 
-    public static RomanNumber parse(String symbol) throws RomanNumberException {
-        if(isValid(symbol)) {
-            return new RomanNumber(symbol);
+    public static RomanNumber parse(String romanSymbol) throws RomanNumberException {
+        if(isValid(romanSymbol)) {
+            return new RomanNumber(romanSymbol);
         }else{
-            throw new RomanNumberException(symbol + ERR_MSG_IS_NOT_A_VALID);
+            throw new RomanNumberException(romanSymbol + ERR_MSG_IS_NOT_A_VALID);
         }
     }
 
