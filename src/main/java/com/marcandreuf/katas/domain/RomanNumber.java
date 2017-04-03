@@ -16,8 +16,7 @@ public class RomanNumber {
     public static final String ERR_MSG_IS_NOT_A_VALID = "Is not a valid roman number.";
     private final String symbol;
     private static final Map<String, Integer> ROMAN_ARABIC = new HashMap<>();
-    private static Pattern romNumMatcherPattern = Pattern.compile("M|CM|D|CD|C|XC|L|XL|X|IX|V|IV|I");
-    private static String romanNumPatter = "^(M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$";
+    private static final Pattern romNumMatcherPattern = Pattern.compile("M|CM|D|CD|C|XC|L|XL|X|IX|V|IV|I");
 
     static{
         ROMAN_ARABIC.put("I", 1);
@@ -48,6 +47,7 @@ public class RomanNumber {
     }
 
     protected static boolean isValid(String romanSymbol){
+        String romanNumPatter = "^(M{0,3})(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$";
         return romanSymbol!= null && !romanSymbol.isEmpty()&& romanSymbol.matches(romanNumPatter);
     }
 
@@ -66,7 +66,7 @@ public class RomanNumber {
 
     private int accArabicValue(int arabicValue, String matchNum) {
         return ROMAN_ARABIC.entrySet().stream().filter(map -> map.getKey().equals(matchNum))
-                .map(m -> m.getValue()).reduce(arabicValue, Integer::sum);
+                .map(Map.Entry::getValue).reduce(arabicValue, Integer::sum);
     }
 
     public String getSymbol() {

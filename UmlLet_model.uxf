@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>360</y>
+      <w>130</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>GalacticConverter
+--
++Main()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>340</x>
+      <y>90</y>
+      <w>380</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>IReaderService
+--
++static addExpressionType(IExpression expression)
++read(String sentence): IExpression
+--
+Responsibilites
+-- Interpret text sentences to return a knowm expression. </panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
