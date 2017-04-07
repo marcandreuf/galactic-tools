@@ -1,4 +1,4 @@
-package com.marcandreuf.katas.domain;
+package com.marcandreuf.katas.domain.vo;
 
 import com.marcandreuf.katas.domain.exceptions.RomanNumberException;
 

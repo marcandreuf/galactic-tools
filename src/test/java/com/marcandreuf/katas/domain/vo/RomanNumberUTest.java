@@ -1,12 +1,13 @@
-package com.marcandreuf.katas.domain;
+package com.marcandreuf.katas.domain.vo;
 
 
 import com.marcandreuf.katas.domain.exceptions.RomanNumberException;
+import com.marcandreuf.katas.domain.vo.RomanNumber;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import static com.marcandreuf.katas.domain.RomanNumber.ERR_MSG_IS_NOT_A_VALID;
+import static com.marcandreuf.katas.domain.vo.RomanNumber.ERR_MSG_IS_NOT_A_VALID;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
