@@ -17,13 +17,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class GalacticNumberUTest {
 
     @Test
-    public void testCreateGalacticNumber() throws RomanNumberException {
+    public void shouldCreateGalacticNumber() throws RomanNumberException {
         GalacticNumber galacticNumber = GalacticNumberBuilder.symbol("glob").is("I");
 
-        String galacticName =  galacticNumber.getSymbol();
+        assertThat(galacticNumber.getSymbol()).isEqualTo("glob");
         RomanNumber romanNumber = galacticNumber.getRomanNumber();
-
-        assertThat(galacticName).isEqualTo("glob");
         assertThat(romanNumber.getSymbol()).isEqualTo("I");
         assertThat(romanNumber.toArabicValue()).isEqualTo(1);
     }

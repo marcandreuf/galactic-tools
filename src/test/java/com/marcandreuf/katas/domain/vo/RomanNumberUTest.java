@@ -2,7 +2,6 @@ package com.marcandreuf.katas.domain.vo;
 
 
 import com.marcandreuf.katas.domain.exceptions.RomanNumberException;
-import com.marcandreuf.katas.domain.vo.RomanNumber;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -16,54 +15,54 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RomanNumberUTest {
 
     @Test
-    public void testCreateRomanNumberOne() throws RomanNumberException {
-        assertRomanNumber("I", 1);
+    public void shouldCreateRomanNumberOne() throws RomanNumberException {
+        assertParsedValueOfRomanNumber("I", 1);
     }
 
-    private void assertRomanNumber(String symbol, int value) throws RomanNumberException {
+    private void assertParsedValueOfRomanNumber(String symbol, int value) throws RomanNumberException {
         RomanNumber rmOne = RomanNumber.parse(symbol);
         assertThat(rmOne.toArabicValue()).isEqualTo(value);
     }
 
     @Test
-    public void testCreateRomanNumberTwo() throws RomanNumberException {
-        assertRomanNumber("II", 2);
+    public void shouldCreateRomanNumberTwo() throws RomanNumberException {
+        assertParsedValueOfRomanNumber("II", 2);
     }
 
     @Test
-    public void testCreateRomanNumberUnits() throws RomanNumberException {
-        assertRomanNumber("III", 3);
-        assertRomanNumber("IV", 4);
-        assertRomanNumber("VII", 7);
-        assertRomanNumber("IX", 9);
+    public void shouldCreateRomanNumberUnits() throws RomanNumberException {
+        assertParsedValueOfRomanNumber("III", 3);
+        assertParsedValueOfRomanNumber("IV", 4);
+        assertParsedValueOfRomanNumber("VII", 7);
+        assertParsedValueOfRomanNumber("IX", 9);
     }
 
     @Test
-    public void testCreateRomanNumberTens() throws RomanNumberException {
-        assertRomanNumber("X", 10);
-        assertRomanNumber("XL", 40);
-        assertRomanNumber("L", 50);
-        assertRomanNumber("XC", 90);
+    public void shouldCreateRomanNumberTens() throws RomanNumberException {
+        assertParsedValueOfRomanNumber("X", 10);
+        assertParsedValueOfRomanNumber("XL", 40);
+        assertParsedValueOfRomanNumber("L", 50);
+        assertParsedValueOfRomanNumber("XC", 90);
     }
 
     @Test
-    public void testCreateRomanNumberHundreds() throws RomanNumberException {
-        assertRomanNumber("C", 100);
-        assertRomanNumber("CD", 400);
-        assertRomanNumber("D", 500);
-        assertRomanNumber("CM", 900);
+    public void shouldCreateRomanNumberHundreds() throws RomanNumberException {
+        assertParsedValueOfRomanNumber("C", 100);
+        assertParsedValueOfRomanNumber("CD", 400);
+        assertParsedValueOfRomanNumber("D", 500);
+        assertParsedValueOfRomanNumber("CM", 900);
     }
 
     @Test
-    public void testCreateRomanNumberThousands() throws RomanNumberException {
-        assertRomanNumber("M", 1000);
-        assertRomanNumber("MMMCMXCIX", 3999);
+    public void shouldCreateRomanNumberThousands() throws RomanNumberException {
+        assertParsedValueOfRomanNumber("M", 1000);
+        assertParsedValueOfRomanNumber("MMMCMXCIX", 3999);
     }
 
     @Test
-    public void testCreateRomanNumberSampleRandoms() throws RomanNumberException {
-        assertRomanNumber("MLI", 1051);
-        assertRomanNumber("MCMIII", 1903);
+    public void shouldCreateRomanNumberSampleRandoms() throws RomanNumberException {
+        assertParsedValueOfRomanNumber("MLI", 1051);
+        assertParsedValueOfRomanNumber("MCMIII", 1903);
     }
 
     @Rule
@@ -78,7 +77,7 @@ public class RomanNumberUTest {
     }
 
     @Test
-    public void testGetSymbol() throws RomanNumberException {
+    public void shouldGetSymbol() throws RomanNumberException {
         RomanNumber romanNumber = RomanNumber.parse("M");
         assertThat(romanNumber.getSymbol()).isEqualTo("M");
     }
