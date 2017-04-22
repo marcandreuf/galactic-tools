@@ -2,7 +2,6 @@ package com.marcandreuf.katas.domain.services;
 
 import com.marcandreuf.katas.domain.IExpression;
 
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -10,7 +9,12 @@ import java.util.Set;
  */
 public class ExpressionsRegistry {
 
-    private final Set<Class<? extends IExpression>> expressionTypes = new HashSet<>();
+    private final Set<Class<? extends IExpression>> expressionTypes;
+
+    public ExpressionsRegistry(Set<Class<? extends IExpression>> expressionTypes) {
+        this.expressionTypes = expressionTypes;
+    }
+
 
     public void addExpressionType(Class<? extends IExpression> cls){
         expressionTypes.add(cls);
