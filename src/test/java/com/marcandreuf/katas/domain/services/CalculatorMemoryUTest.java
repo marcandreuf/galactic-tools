@@ -9,7 +9,7 @@ import org.junit.Test;
 public class CalculatorMemoryUTest {
 
     //TODO: Rename umllet model memorise to register.
-    //TODO: Rename CalculatorMemory to ExpressionCache
+    //TODO: Rename CalculatorMemory to ExpressionCacheService
 
     private GalacticNumber mocked_galacticNumber;
     private ExpressionCache expressionCache;
