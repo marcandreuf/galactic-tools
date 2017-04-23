@@ -23,9 +23,12 @@ public class GalacticNumber {
         return romanNumber;
     }
 
+
+
     public static class GalacticNumberBuilder{
 
         private String unit;
+        private RomanNumber romanNumber;
 
         private GalacticNumberBuilder(String unit){
             this.unit = unit;
@@ -35,10 +38,27 @@ public class GalacticNumber {
             return new GalacticNumberBuilder(galacticUnit);
         }
 
-        public GalacticNumber is(String romanNumber) throws RomanNumberException {
-            RomanNumber romNum = RomanNumber.parse(romanNumber);
-            return new GalacticNumber(unit, romNum);
+        public GalacticNumberBuilder is(String symbol) throws RomanNumberException {
+            romanNumber = RomanNumber.parse(symbol);
+            return this;
+        }
+
+        public GalacticNumber build(){
+            return new GalacticNumber(unit, romanNumber);
         }
     }
 
+    @Override
+    public int hashCode() {
+        return symbol.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
+
+        GalacticNumber that = (GalacticNumber) o;
+        return this.symbol.equals(that.symbol) && this.romanNumber.equals(that.romanNumber);
+    }
 }

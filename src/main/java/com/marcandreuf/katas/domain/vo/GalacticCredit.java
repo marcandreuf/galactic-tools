@@ -22,6 +22,7 @@ public class GalacticCredit {
 
     public static class GalacticCreditBuilder{
         private final String symbol;
+        private double value;
 
         public GalacticCreditBuilder(String symbol) {
             this.symbol = symbol;
@@ -31,8 +32,28 @@ public class GalacticCredit {
             return new GalacticCreditBuilder(symbol);
         }
 
-        public GalacticCredit arabicValue(double value) {
+        public GalacticCreditBuilder arabicValue(double value) {
+            this.value = value;
+            return this;
+        }
+
+        public GalacticCredit build(){
             return new GalacticCredit(symbol, value);
         }
+    }
+
+    @Override
+    public int hashCode() {
+        return symbol.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if(this == o) return true;
+        if(o == null || getClass() != o.getClass()) return false;
+
+        GalacticCredit that = (GalacticCredit) o;
+
+        return this.symbol.equals(that.symbol) && this.value == that.value;
     }
 }

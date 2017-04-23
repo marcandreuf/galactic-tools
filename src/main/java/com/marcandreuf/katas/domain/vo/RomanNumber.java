@@ -72,4 +72,18 @@ public class RomanNumber {
     public String getSymbol() {
         return symbol;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RomanNumber that = (RomanNumber) o;
+        return symbol.equals(that.symbol);
+    }
+
+    @Override
+    public int hashCode() {
+        return symbol.hashCode();
+    }
 }

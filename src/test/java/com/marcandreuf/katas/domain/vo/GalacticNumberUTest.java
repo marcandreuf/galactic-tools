@@ -18,7 +18,11 @@ public class GalacticNumberUTest {
 
     @Test
     public void shouldCreateGalacticNumber() throws RomanNumberException {
-        GalacticNumber galacticNumber = GalacticNumberBuilder.symbol("glob").is("I");
+        GalacticNumber galacticNumber =
+                GalacticNumberBuilder
+                        .symbol("glob")
+                        .is("I")
+                        .build();
 
         assertThat(galacticNumber.getSymbol()).isEqualTo("glob");
         RomanNumber romanNumber = galacticNumber.getRomanNumber();

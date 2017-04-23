@@ -14,7 +14,11 @@ public class GalacticCreditUTest {
 
     @Test
     public void shouldCreateAGalacticCredit(){
-        GalacticCredit galacticCredit = GalacticCreditBuilder.symbol("Silver").arabicValue(100.1);
+        GalacticCredit galacticCredit =
+                GalacticCreditBuilder
+                        .symbol("Silver")
+                        .arabicValue(100.1)
+                        .build();
 
         assertThat(galacticCredit.getSymbol()).isEqualTo("Silver");
         assertThat(galacticCredit.getValue()).isEqualTo(100.1);
