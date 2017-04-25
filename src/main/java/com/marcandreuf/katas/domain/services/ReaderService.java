@@ -1,5 +1,6 @@
 package com.marcandreuf.katas.domain.services;
 
+import com.marcandreuf.katas.domain.exceptions.ExpressionException;
 import com.marcandreuf.katas.domain.expressions.IExpression;
 
 import java.util.Set;
@@ -9,7 +10,7 @@ import java.util.Set;
  */
 public class ReaderService implements IReaderService {
 
-
+    public static final String SENTENCE_NOT_MATCHING = "I have no idea what you are talking about";
     private final ExpressionsRegistry expressionRegistry;
 
     public ReaderService(ExpressionsRegistry expressionRegistry) {
@@ -17,20 +18,19 @@ public class ReaderService implements IReaderService {
     }
 
     @Override
-    public IExpression read(String sentence) throws IllegalAccessException, InstantiationException {
-
+    public IExpression read(String sentence) throws ExpressionException {
         Set<Class<? extends IExpression>> registeredExpressions = expressionRegistry.getExpressionTypes();
 
-        for(Class type : registeredExpressions){
-            IExpression expression = (IExpression) type.newInstance();
-            //TODO: new instance with paramter String to send sentence by constructor.
-            if(expression.matches()){
-                return expression;
+        for(Class expressionType : registeredExpressions){
+            try {
+                IExpression expression = (IExpression) expressionType.getDeclaredConstructor(String.class).newInstance(sentence);
+                if(expression.matches()){
+                    return expression;
+                }
+            } catch (Exception e) {
+                throw new ExpressionException(e.getMessage(), e);
             }
-
         }
-
-
-        return null;
+        throw new ExpressionException(SENTENCE_NOT_MATCHING);
     }
 }
