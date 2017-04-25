@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.marcandreuf.katas.domain.vo.GalacticCredit.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -20,6 +21,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 public class CalculatorMemoryUTest {
 
     //TODO: Rename umllet model memorise to register.
+    //TODO: Rename umllet model retriveX to getX.
     //TODO: Rename CalculatorMemory to ExpressionCacheService
 
     private Set mocked_setGalacticNumber;
@@ -27,6 +29,9 @@ public class CalculatorMemoryUTest {
     private GalacticNumber mocked_galacticNumber;
     private GalacticCredit mocked_galacticCredit;
     private ExpressionCacheService expressionCache;
+    private Set<GalacticNumber> stubbedSetGNumbers = new HashSet<>();
+    private Set<GalacticCredit> stubbedSetGCredits = new HashSet<>();
+
 
     @Before
     public void setUp(){
@@ -56,19 +61,32 @@ public class CalculatorMemoryUTest {
 
     @Test
     public void shouldGetTheGalacticNumberByItsSymbol() throws RomanNumberException {
-        Set<GalacticNumber> stubbedSetGNumbers = new HashSet<>();
-        Set<GalacticCredit> stubbedSetGCredits = new HashSet<>();
-        GalacticNumber sampleGN = GalacticNumber.GalacticNumberBuilder.symbol("glob").is("I").build();
+        String sampleSymbol = "glob";
+        GalacticNumber sampleGN = GalacticNumber.GalacticNumberBuilder.symbol(sampleSymbol).is("I").build();
         stubbedSetGNumbers.add(sampleGN);
+        setUpStubbedService();
 
-        expressionCache = new ExpressionCacheService(stubbedSetGNumbers, stubbedSetGCredits);
-
-        GalacticNumber galacticNumber = expressionCache.getGalacticNumber("glob");
+        GalacticNumber galacticNumber = expressionCache.getGalacticNumber(sampleSymbol);
 
         assertThat(galacticNumber).isSameAs(sampleGN);
     }
 
-    //TODO: test should get the galactic credit by its name
+    private void setUpStubbedService() {
+        expressionCache = new ExpressionCacheService(stubbedSetGNumbers, stubbedSetGCredits);
+    }
+
+
+    @Test
+    public void shouldGetTheGalacticCreditByItsName(){
+        String sampleName = "Silver";
+        GalacticCredit sampleGC = GalacticCreditBuilder.name(sampleName).arabicValue(1).build();
+        stubbedSetGCredits.add(sampleGC);
+        setUpStubbedService();
+
+        GalacticCredit galacticCredit = expressionCache.getGalacticCredit(sampleName);
+
+        assertThat(galacticCredit).isSameAs(sampleGC);
+    }
 
 
 
