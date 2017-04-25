@@ -1,6 +1,6 @@
 package com.marcandreuf.katas.domain.services;
 
-import com.marcandreuf.katas.domain.GalacticNumberExpression;
+import com.marcandreuf.katas.domain.expressions.GalacticNumberExpression;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,7 +27,7 @@ public class ExpressionRegistryUTest {
     public void shouldRegisterAnySubtypeOfIExpression(){
         Class sampleClass = GalacticNumberExpression.class;
 
-        expressionsRegistry.addExpressionType(sampleClass);
+        expressionsRegistry.registerExpression(sampleClass);
 
         verify(mocked_set).add(sampleClass);
     }

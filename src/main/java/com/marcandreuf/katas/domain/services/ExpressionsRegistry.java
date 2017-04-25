@@ -1,6 +1,6 @@
 package com.marcandreuf.katas.domain.services;
 
-import com.marcandreuf.katas.domain.IExpression;
+import com.marcandreuf.katas.domain.expressions.IExpression;
 
 import java.util.Set;
 
@@ -16,7 +16,7 @@ public class ExpressionsRegistry {
     }
 
 
-    public void addExpressionType(Class<? extends IExpression> cls){
+    public void registerExpression(Class<? extends IExpression> cls){
         expressionTypes.add(cls);
     }
 
