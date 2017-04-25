@@ -41,4 +41,7 @@ public class IReaderServiceITest {
                 .withMessage(ReaderService.SENTENCE_NOT_MATCHING);
     }
 
+
+    //TODO: Implement the other type of sentences
+
 }

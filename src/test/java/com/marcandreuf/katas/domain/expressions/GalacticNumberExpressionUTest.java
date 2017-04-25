@@ -11,6 +11,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class GalacticNumberExpressionUTest {
 
 
+    //TODO: remove methods from GalacticNumberExpression type. They are not necessary as the
+    // Expression knows how to resolve itself.
+
+
+    //TODO: Rename method IExpression:calcualte() by resolve()
+
     @Test
     public void shouldCreateAMatchingExpression() throws ExpressionException {
         IExpression expression = new GalacticNumberExpression("glob is I");
@@ -24,6 +30,18 @@ public class GalacticNumberExpressionUTest {
 
         expression = new GalacticNumberExpression("glob is NONROMANNUM");
         assertThat(expression.matches()).isFalse();
+    }
+
+
+    @Test
+    public void shouldRegisterTheGalacticNumberIntoTheCache() throws ExpressionException {
+
+        IExpression expression = new GalacticNumberExpression("glob is I");
+
+        expression.resolve(mocked_cache);
+
+        //TODO: assert a galacticNumber is added to the cache.
+
     }
 
 
