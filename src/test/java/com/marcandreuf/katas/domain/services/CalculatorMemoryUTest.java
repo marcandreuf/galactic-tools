@@ -66,8 +66,11 @@ public class CalculatorMemoryUTest {
         GalacticNumber galacticNumber = expressionCache.getGalacticNumber("glob");
 
         assertThat(galacticNumber).isSameAs(sampleGN);
-
     }
+
+    //TODO: test should get the galactic credit by its name
+
+
 
 
 }

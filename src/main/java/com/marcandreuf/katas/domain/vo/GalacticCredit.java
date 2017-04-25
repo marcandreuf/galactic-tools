@@ -4,16 +4,16 @@ package com.marcandreuf.katas.domain.vo;
  * Created by marc on 21/04/17.
  */
 public class GalacticCredit {
-    private final String symbol;
+    private final String name;
     private final double value;
 
-    public GalacticCredit(String symbol, double value) {
-        this.symbol = symbol;
+    public GalacticCredit(String name, double value) {
+        this.name = name;
         this.value = value;
     }
 
-    public String getSymbol() {
-        return symbol;
+    public String getName() {
+        return name;
     }
 
     public double getValue() {
@@ -21,14 +21,14 @@ public class GalacticCredit {
     }
 
     public static class GalacticCreditBuilder{
-        private final String symbol;
+        private final String name;
         private double value;
 
-        public GalacticCreditBuilder(String symbol) {
-            this.symbol = symbol;
+        public GalacticCreditBuilder(String name) {
+            this.name = name;
         }
 
-        public static GalacticCreditBuilder symbol(String symbol) {
+        public static GalacticCreditBuilder name(String symbol) {
             return new GalacticCreditBuilder(symbol);
         }
 
@@ -38,13 +38,13 @@ public class GalacticCredit {
         }
 
         public GalacticCredit build(){
-            return new GalacticCredit(symbol, value);
+            return new GalacticCredit(name, value);
         }
     }
 
     @Override
     public int hashCode() {
-        return symbol.hashCode();
+        return name.hashCode();
     }
 
     @Override
@@ -54,6 +54,6 @@ public class GalacticCredit {
 
         GalacticCredit that = (GalacticCredit) o;
 
-        return this.symbol.equals(that.symbol) && this.value == that.value;
+        return this.name.equals(that.name) && this.value == that.value;
     }
 }

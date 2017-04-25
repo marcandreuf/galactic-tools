@@ -4,7 +4,6 @@ import com.marcandreuf.katas.domain.vo.GalacticCredit;
 import com.marcandreuf.katas.domain.vo.GalacticNumber;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * Created by marc on 22/04/17.
@@ -31,6 +30,6 @@ public class ExpressionCacheService {
     }
 
     public GalacticCredit getGalacticCredit(String symbol) {
-        return galacticCredits.stream().filter(gc -> gc.getSymbol().equals(symbol)).findFirst().get();
+        return galacticCredits.stream().filter(gc -> gc.getName().equals(symbol)).findFirst().get();
     }
 }

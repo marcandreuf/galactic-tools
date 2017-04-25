@@ -16,11 +16,11 @@ public class GalacticCreditUTest {
     public void shouldCreateAGalacticCredit(){
         GalacticCredit galacticCredit =
                 GalacticCreditBuilder
-                        .symbol("Silver")
+                        .name("Silver")
                         .arabicValue(100.1)
                         .build();
 
-        assertThat(galacticCredit.getSymbol()).isEqualTo("Silver");
+        assertThat(galacticCredit.getName()).isEqualTo("Silver");
         assertThat(galacticCredit.getValue()).isEqualTo(100.1);
     }
 }
