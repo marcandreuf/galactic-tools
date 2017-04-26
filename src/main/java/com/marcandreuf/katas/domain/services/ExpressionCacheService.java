@@ -8,6 +8,9 @@ import java.util.Set;
 /**
  * Created by marc on 22/04/17.
  */
+
+//TODO: Rename to CalculatorService as it will have calculations operations.
+
 public class ExpressionCacheService {
     private final Set<GalacticNumber> galacticNumbers;
     private final Set<GalacticCredit> galacticCredits;

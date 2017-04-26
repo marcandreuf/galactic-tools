@@ -1,9 +1,17 @@
 package com.marcandreuf.katas.domain.expressions;
 
 import com.marcandreuf.katas.domain.exceptions.ExpressionException;
+import com.marcandreuf.katas.domain.services.ExpressionCacheService;
+import com.marcandreuf.katas.domain.vo.GalacticNumber;
+import com.marcandreuf.katas.domain.vo.RomanNumber;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 /**
  * Created by marc on 25/04/17.
@@ -21,6 +29,9 @@ public class GalacticNumberExpressionUTest {
     public void shouldCreateAMatchingExpression() throws ExpressionException {
         IExpression expression = new GalacticNumberExpression("glob is I");
         assertThat(expression.matches()).isTrue();
+
+        expression = new GalacticNumberExpression("glob is NONROMANNUM");
+        assertThat(expression.matches()).isTrue();
     }
 
     @Test
@@ -28,22 +39,30 @@ public class GalacticNumberExpressionUTest {
         IExpression expression = new GalacticNumberExpression("not matching sentence here = I");
         assertThat(expression.matches()).isFalse();
 
-        expression = new GalacticNumberExpression("glob is NONROMANNUM");
-        assertThat(expression.matches()).isFalse();
     }
 
 
     @Test
-    public void shouldRegisterTheGalacticNumberIntoTheCache() throws ExpressionException {
-
+    public void shouldResolveAMatchingExpression() throws ExpressionException {
+        ExpressionCacheService mocked_cache = mock(ExpressionCacheService.class);
         IExpression expression = new GalacticNumberExpression("glob is I");
 
-        expression.resolve(mocked_cache);
+        String response = expression.resolve(mocked_cache);
 
-        //TODO: assert a galacticNumber is added to the cache.
-
+        assertThat(response).isEmpty();
+        verify(mocked_cache).register(any(GalacticNumber.class));
     }
 
+
+    @Test
+    public void shouldNotBeAbleToResolveAMatchingExpression() throws ExpressionException {
+        ExpressionCacheService mocked_cache = mock(ExpressionCacheService.class);
+        IExpression expression = new GalacticNumberExpression("glob is NONROMANNUM");
+
+        assertThatExceptionOfType(ExpressionException.class)
+                .isThrownBy(() -> expression.resolve(mocked_cache))
+                .withMessageContaining(RomanNumber.ERR_MSG_IS_NOT_A_VALID);
+    }
 
 
 }

@@ -13,47 +13,29 @@ import java.util.regex.Pattern;
  *
  * This class is responsible to handle a valid galactic number definition expression.
  *
- * Example expression "pish tegj glob glob is 42"
+ * Example expression "glob is I"
  *
  */
-public class GalacticNumberExpression implements IExpression {
-
-    private final String sentence;
-    private final boolean isMatch;
-    private final GalacticNumber galacticNumber;
-
+public class GalacticNumberExpression extends BaseExpression {
     private static final String UNIT_STATEMENT_PATTERN = "^([a-z]+)\\s+is\\s+([A-Z]+)\\s*$";
     private static final int US_UNIT_GROUP = 1;
     private static final int US_ROMANNUMBER_GROUP = 2;
 
+    private final String symbol;
+    private final String romanNum;
+    private final boolean isMatch;
+
     public GalacticNumberExpression(String sentence) throws ExpressionException {
-        this.sentence = sentence;
         Matcher unitStatementMatcher = getMatcher(sentence, UNIT_STATEMENT_PATTERN);
         if(unitStatementMatcher.matches()){
-            String symbol = unitStatementMatcher.group(US_UNIT_GROUP);
-            String romanNum = unitStatementMatcher.group(US_ROMANNUMBER_GROUP);
-            this.galacticNumber = tryCreateGalacticNumber(symbol, romanNum);
-            if(this.galacticNumber == null){
-                this.isMatch = false;
-            }else{
-                this.isMatch = true;
-            }
+            this.symbol = unitStatementMatcher.group(US_UNIT_GROUP);
+            this.romanNum = unitStatementMatcher.group(US_ROMANNUMBER_GROUP);
+            this.isMatch = true;
         }else{
+            this.symbol = "";
+            this.romanNum = "";
             this.isMatch = false;
-            this.galacticNumber = null;
         }
-    }
-
-    private GalacticNumber tryCreateGalacticNumber(String symbol, String romanNum){
-        try {
-            return GalacticNumber.GalacticNumberBuilder.symbol(symbol).is(romanNum).build();
-        } catch (RomanNumberException e) {
-            return null;
-        }
-    }
-
-    private Matcher getMatcher(String line, String pattern){
-        return Pattern.compile(pattern).matcher(line);
     }
 
     @Override
@@ -62,8 +44,17 @@ public class GalacticNumberExpression implements IExpression {
     }
 
     @Override
-    public String resolve(ExpressionCacheService cache) {
+    public String resolve(ExpressionCacheService cache) throws ExpressionException {
+        GalacticNumber galacticNumber = tryCreateGalacticNumber(symbol, romanNum);
         cache.register(galacticNumber);
         return "";
+    }
+
+    private GalacticNumber tryCreateGalacticNumber(String symbol, String romanNum) throws ExpressionException {
+        try {
+            return GalacticNumber.GalacticNumberBuilder.symbol(symbol).is(romanNum).build();
+        } catch (RomanNumberException e) {
+            throw new ExpressionException(e.getMessage(), e);
+        }
     }
 }
