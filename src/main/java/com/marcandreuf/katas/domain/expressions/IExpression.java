@@ -1,8 +1,7 @@
 package com.marcandreuf.katas.domain.expressions;
 
 import com.marcandreuf.katas.domain.exceptions.ExpressionException;
-import com.marcandreuf.katas.domain.services.ExpressionCacheService;
-import com.marcandreuf.katas.domain.vo.GalacticNumber;
+import com.marcandreuf.katas.domain.services.GalacticCalculatorService;
 
 /**
  * Created by andreufm on 07/04/2017.
@@ -15,6 +14,6 @@ import com.marcandreuf.katas.domain.vo.GalacticNumber;
 public interface IExpression {
 
     boolean matches();
-    String resolve(ExpressionCacheService cache) throws ExpressionException;
+    String resolve(GalacticCalculatorService cache) throws ExpressionException;
 
 }

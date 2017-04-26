@@ -1,6 +1,6 @@
 package com.marcandreuf.katas.domain.expressions;
 
-import com.marcandreuf.katas.domain.services.ExpressionCacheService;
+import com.marcandreuf.katas.domain.services.GalacticCalculatorService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 /**
  * Created by marc on 26/04/17.
  *
- * This class is responsible to handle a valid galactic number definition expression.
+ * This class is responsible to handle a valid galactic credit definition expression.
  *
  * Example expression "glob glob Silver is 34 Credits"
  */
@@ -47,7 +47,7 @@ public class GalacticCreditExpression extends BaseExpression {
     }
 
     @Override
-    public String resolve(ExpressionCacheService cache) {
+    public String resolve(GalacticCalculatorService cache) {
 
         //TODO: 1. Add up galactic numbers arabic values.
 

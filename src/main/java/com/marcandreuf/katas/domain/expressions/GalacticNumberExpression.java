@@ -2,11 +2,10 @@ package com.marcandreuf.katas.domain.expressions;
 
 import com.marcandreuf.katas.domain.exceptions.ExpressionException;
 import com.marcandreuf.katas.domain.exceptions.RomanNumberException;
-import com.marcandreuf.katas.domain.services.ExpressionCacheService;
+import com.marcandreuf.katas.domain.services.GalacticCalculatorService;
 import com.marcandreuf.katas.domain.vo.GalacticNumber;
 
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by andreufm on 07/04/2017.
@@ -44,7 +43,7 @@ public class GalacticNumberExpression extends BaseExpression {
     }
 
     @Override
-    public String resolve(ExpressionCacheService cache) throws ExpressionException {
+    public String resolve(GalacticCalculatorService cache) throws ExpressionException {
         GalacticNumber galacticNumber = tryCreateGalacticNumber(symbol, romanNum);
         cache.register(galacticNumber);
         return "";

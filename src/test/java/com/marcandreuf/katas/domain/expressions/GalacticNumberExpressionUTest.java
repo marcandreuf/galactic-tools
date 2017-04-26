@@ -1,14 +1,13 @@
 package com.marcandreuf.katas.domain.expressions;
 
 import com.marcandreuf.katas.domain.exceptions.ExpressionException;
-import com.marcandreuf.katas.domain.services.ExpressionCacheService;
+import com.marcandreuf.katas.domain.services.GalacticCalculatorService;
 import com.marcandreuf.katas.domain.vo.GalacticNumber;
 import com.marcandreuf.katas.domain.vo.RomanNumber;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -44,7 +43,7 @@ public class GalacticNumberExpressionUTest {
 
     @Test
     public void shouldResolveAMatchingExpression() throws ExpressionException {
-        ExpressionCacheService mocked_cache = mock(ExpressionCacheService.class);
+        GalacticCalculatorService mocked_cache = mock(GalacticCalculatorService.class);
         IExpression expression = new GalacticNumberExpression("glob is I");
 
         String response = expression.resolve(mocked_cache);
@@ -56,7 +55,7 @@ public class GalacticNumberExpressionUTest {
 
     @Test
     public void shouldNotBeAbleToResolveAMatchingExpression() throws ExpressionException {
-        ExpressionCacheService mocked_cache = mock(ExpressionCacheService.class);
+        GalacticCalculatorService mocked_cache = mock(GalacticCalculatorService.class);
         IExpression expression = new GalacticNumberExpression("glob is NONROMANNUM");
 
         assertThatExceptionOfType(ExpressionException.class)

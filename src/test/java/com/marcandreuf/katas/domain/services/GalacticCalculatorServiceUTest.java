@@ -11,24 +11,22 @@ import java.util.Set;
 
 import static com.marcandreuf.katas.domain.vo.GalacticCredit.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by marc on 22/04/17.
  */
-public class CalculatorMemoryUTest {
+public class GalacticCalculatorServiceUTest {
 
     //TODO: Rename umllet model memorise to register.
     //TODO: Rename umllet model retriveX to getX.
-    //TODO: Rename CalculatorMemory to ExpressionCacheService
+    //TODO: Rename CalculatorMemory to GalacticCalculatorService
 
     private Set mocked_setGalacticNumber;
     private Set mocked_setGalacticCredit;
     private GalacticNumber mocked_galacticNumber;
     private GalacticCredit mocked_galacticCredit;
-    private ExpressionCacheService expressionCache;
+    private GalacticCalculatorService galacticCalculatorService;
     private Set<GalacticNumber> stubbedSetGNumbers = new HashSet<>();
     private Set<GalacticCredit> stubbedSetGCredits = new HashSet<>();
 
@@ -39,13 +37,14 @@ public class CalculatorMemoryUTest {
         mocked_galacticCredit = mock(GalacticCredit.class);
         mocked_setGalacticNumber = mock(Set.class);
         mocked_setGalacticCredit = mock(Set.class);
-        expressionCache = new ExpressionCacheService(mocked_setGalacticNumber, mocked_setGalacticCredit);
+        galacticCalculatorService = new GalacticCalculatorService(
+                mocked_setGalacticNumber, mocked_setGalacticCredit);
     }
 
 
     @Test
     public void shouldRegisterAGalacticNumber(){
-        expressionCache.register(mocked_galacticNumber);
+        galacticCalculatorService.register(mocked_galacticNumber);
 
         verify(mocked_setGalacticNumber).add(mocked_galacticNumber);
         verifyNoMoreInteractions(mocked_setGalacticNumber, mocked_setGalacticCredit);
@@ -53,7 +52,7 @@ public class CalculatorMemoryUTest {
 
     @Test
     public void shouldRegisterAGalacticCredit(){
-        expressionCache.register(mocked_galacticCredit);
+        galacticCalculatorService.register(mocked_galacticCredit);
 
         verify(mocked_setGalacticCredit).add(mocked_galacticCredit);
         verifyNoMoreInteractions(mocked_setGalacticNumber, mocked_setGalacticCredit);
@@ -66,13 +65,13 @@ public class CalculatorMemoryUTest {
         stubbedSetGNumbers.add(sampleGN);
         setUpStubbedService();
 
-        GalacticNumber galacticNumber = expressionCache.getGalacticNumber(sampleSymbol);
+        GalacticNumber galacticNumber = galacticCalculatorService.getGalacticNumber(sampleSymbol);
 
         assertThat(galacticNumber).isSameAs(sampleGN);
     }
 
     private void setUpStubbedService() {
-        expressionCache = new ExpressionCacheService(stubbedSetGNumbers, stubbedSetGCredits);
+        galacticCalculatorService = new GalacticCalculatorService(stubbedSetGNumbers, stubbedSetGCredits);
     }
 
 
@@ -83,9 +82,26 @@ public class CalculatorMemoryUTest {
         stubbedSetGCredits.add(sampleGC);
         setUpStubbedService();
 
-        GalacticCredit galacticCredit = expressionCache.getGalacticCredit(sampleName);
+        GalacticCredit galacticCredit = galacticCalculatorService.getGalacticCredit(sampleName);
 
         assertThat(galacticCredit).isSameAs(sampleGC);
+    }
+
+
+    @Test
+    public void shouldAddUpTheListOfGalacticNumberSymbolsIntoAnArabicValue() throws RomanNumberException {
+        GalacticNumber gnGlob = GalacticNumber.GalacticNumberBuilder.symbol("glob").is("I").build();
+        GalacticNumber gnPish = GalacticNumber.GalacticNumberBuilder.symbol("pish").is("III").build();
+        stubbedSetGNumbers.add(gnGlob);
+        stubbedSetGNumbers.add(gnPish);
+        setUpStubbedService();
+
+        int value = galacticCalculatorService.addGalacticNumbers("glob", "glob");
+        assertThat(value).isEqualTo(2);
+
+        value = galacticCalculatorService.addGalacticNumbers("glob", "glob", "pish");
+        assertThat(value).isEqualTo(5);
+
     }
 
 
