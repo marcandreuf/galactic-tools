@@ -1,10 +1,15 @@
 package com.marcandreuf.katas.domain.expressions;
 
+import com.marcandreuf.katas.domain.exceptions.ExpressionException;
+import com.marcandreuf.katas.domain.exceptions.RomanNumberException;
 import com.marcandreuf.katas.domain.services.GalacticCalculatorService;
+import com.marcandreuf.katas.domain.vo.GalacticCredit;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
+
+import static com.marcandreuf.katas.domain.vo.GalacticCredit.*;
 
 /**
  * Created by marc on 26/04/17.
@@ -47,17 +52,16 @@ public class GalacticCreditExpression extends BaseExpression {
     }
 
     @Override
-    public String resolve(GalacticCalculatorService calculatorService) {
-
-        int galacticNumberValue = calculatorService.calcArabicValue(lstUnits);
-
-        //TODO: 2. Calculate galactic credit value.
-        // double galacticCreditValue = statementValue / galacticNumbersArabicValue;
-
-        //TODO: 3. Create a GalacticCredit
-
-        //TODO: 4. Register the galactic credit into the CalculatorService. (cache)
-
-        return null;
+    public String resolve(GalacticCalculatorService calculatorService) throws ExpressionException {
+        try {
+            int galacticNumbersArabicValue = calculatorService.calcArabicValue(lstUnits);
+            double galacticCreditValue = statementValue / galacticNumbersArabicValue;
+            GalacticCredit galacticCredit =
+                    GalacticCreditBuilder.name(this.creditName).arabicValue(galacticCreditValue).build();
+            calculatorService.register(galacticCredit);
+            return "";
+        } catch (RomanNumberException e) {
+            throw new ExpressionException(e.getMessage(), e);
+        }
     }
 }

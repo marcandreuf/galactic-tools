@@ -6,9 +6,7 @@ import com.marcandreuf.katas.domain.vo.GalacticNumber;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashSet;
-import java.util.NoSuchElementException;
-import java.util.Set;
+import java.util.*;
 
 import static com.marcandreuf.katas.domain.vo.GalacticCredit.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -112,16 +110,19 @@ public class GalacticCalculatorServiceUTest {
         stubbedSetGNumbers.add(GalacticNumber.GalacticNumberBuilder.symbol("prok").is("V").build());
         stubbedSetGNumbers.add(GalacticNumber.GalacticNumberBuilder.symbol("pish").is("X").build());
         stubbedSetGNumbers.add(GalacticNumber.GalacticNumberBuilder.symbol("tegj").is("L").build());
-
         setUpStubbedService();
+        List<String> units2 = Arrays.asList(new String[]{"glob", "glob"});
+        List<String> units41 = Arrays.asList(new String[]{"pish", "tegj", "glob"});
+        List<String> units14 = Arrays.asList(new String[]{"pish", "glob", "prok"});
 
-        int value = galacticCalculatorService.calcArabicValue("glob", "glob");
+
+        int value = galacticCalculatorService.calcArabicValue(units2);
         assertThat(value).isEqualTo(2);
 
-        value = galacticCalculatorService.calcArabicValue("pish", "tegj", "glob");
+        value = galacticCalculatorService.calcArabicValue(units41);
         assertThat(value).isEqualTo(41);
 
-        value = galacticCalculatorService.calcArabicValue("pish", "glob", "prok");
+        value = galacticCalculatorService.calcArabicValue(units14);
         assertThat(value).isEqualTo(14);
     }
 

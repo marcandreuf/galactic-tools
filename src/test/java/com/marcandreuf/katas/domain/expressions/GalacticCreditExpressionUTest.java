@@ -1,6 +1,7 @@
 package com.marcandreuf.katas.domain.expressions;
 
 import com.marcandreuf.katas.domain.exceptions.ExpressionException;
+import com.marcandreuf.katas.domain.exceptions.RomanNumberException;
 import com.marcandreuf.katas.domain.services.GalacticCalculatorService;
 import com.marcandreuf.katas.domain.vo.GalacticCredit;
 import com.marcandreuf.katas.domain.vo.GalacticNumber;
@@ -10,9 +11,11 @@ import org.junit.Test;
 import static com.marcandreuf.katas.domain.vo.GalacticCredit.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyList;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by marc on 26/04/17.
@@ -38,9 +41,10 @@ public class GalacticCreditExpressionUTest {
     }
 
     @Test
-    public void shouldResolveAGalacticCreditExpression() throws ExpressionException {
+    public void shouldResolveAGalacticCreditExpression() throws ExpressionException, RomanNumberException {
         GalacticCredit galacticCredit = GalacticCreditBuilder.name("Silver").arabicValue(17).build();
         GalacticCalculatorService mocked_calculator = mock(GalacticCalculatorService.class);
+        when(mocked_calculator.calcArabicValue(anyList())).thenReturn(2);
 
         String response = expression.resolve(mocked_calculator);
 
