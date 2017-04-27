@@ -43,13 +43,13 @@ public class GalacticNumberExpressionUTest {
 
     @Test
     public void shouldResolveAMatchingExpression() throws ExpressionException {
-        GalacticCalculatorService mocked_cache = mock(GalacticCalculatorService.class);
+        GalacticCalculatorService mocked_calculator = mock(GalacticCalculatorService.class);
         IExpression expression = new GalacticNumberExpression("glob is I");
 
-        String response = expression.resolve(mocked_cache);
+        String response = expression.resolve(mocked_calculator);
 
         assertThat(response).isEmpty();
-        verify(mocked_cache).register(any(GalacticNumber.class));
+        verify(mocked_calculator).register(any(GalacticNumber.class));
     }
 
 

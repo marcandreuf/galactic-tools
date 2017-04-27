@@ -47,9 +47,9 @@ public class GalacticCreditExpression extends BaseExpression {
     }
 
     @Override
-    public String resolve(GalacticCalculatorService cache) {
+    public String resolve(GalacticCalculatorService calculatorService) {
 
-        //TODO: 1. Add up galactic numbers arabic values.
+        int galacticNumberValue = calculatorService.calcArabicValue(lstUnits);
 
         //TODO: 2. Calculate galactic credit value.
         // double galacticCreditValue = statementValue / galacticNumbersArabicValue;

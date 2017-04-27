@@ -7,10 +7,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashSet;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import static com.marcandreuf.katas.domain.vo.GalacticCredit.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.*;
 
 /**
@@ -74,6 +76,14 @@ public class GalacticCalculatorServiceUTest {
         galacticCalculatorService = new GalacticCalculatorService(stubbedSetGNumbers, stubbedSetGCredits);
     }
 
+    @Test
+    public void shouldThrowAnExceptionIfTheGalacticNumberIsNotFound(){
+        setUpStubbedService();
+
+        assertThatExceptionOfType(NoSuchElementException.class)
+                .isThrownBy(() -> galacticCalculatorService.getGalacticNumber("NONROMNANNUM"));
+    }
+
 
     @Test
     public void shouldGetTheGalacticCreditByItsName(){
@@ -87,21 +97,32 @@ public class GalacticCalculatorServiceUTest {
         assertThat(galacticCredit).isSameAs(sampleGC);
     }
 
+    @Test
+    public void shouldThrowAnExceptionIfTheGalacticCreditIsNotFound(){
+        setUpStubbedService();
+
+        assertThatExceptionOfType(NoSuchElementException.class)
+                .isThrownBy(() -> galacticCalculatorService.getGalacticCredit("NOTACREDIT"));
+    }
+
 
     @Test
     public void shouldAddUpTheListOfGalacticNumberSymbolsIntoAnArabicValue() throws RomanNumberException {
-        GalacticNumber gnGlob = GalacticNumber.GalacticNumberBuilder.symbol("glob").is("I").build();
-        GalacticNumber gnPish = GalacticNumber.GalacticNumberBuilder.symbol("pish").is("III").build();
-        stubbedSetGNumbers.add(gnGlob);
-        stubbedSetGNumbers.add(gnPish);
+        stubbedSetGNumbers.add(GalacticNumber.GalacticNumberBuilder.symbol("glob").is("I").build());
+        stubbedSetGNumbers.add(GalacticNumber.GalacticNumberBuilder.symbol("prok").is("V").build());
+        stubbedSetGNumbers.add(GalacticNumber.GalacticNumberBuilder.symbol("pish").is("X").build());
+        stubbedSetGNumbers.add(GalacticNumber.GalacticNumberBuilder.symbol("tegj").is("L").build());
+
         setUpStubbedService();
 
-        int value = galacticCalculatorService.addGalacticNumbers("glob", "glob");
+        int value = galacticCalculatorService.calcArabicValue("glob", "glob");
         assertThat(value).isEqualTo(2);
 
-        value = galacticCalculatorService.addGalacticNumbers("glob", "glob", "pish");
-        assertThat(value).isEqualTo(5);
+        value = galacticCalculatorService.calcArabicValue("pish", "tegj", "glob");
+        assertThat(value).isEqualTo(41);
 
+        value = galacticCalculatorService.calcArabicValue("pish", "glob", "prok");
+        assertThat(value).isEqualTo(14);
     }
 
 
