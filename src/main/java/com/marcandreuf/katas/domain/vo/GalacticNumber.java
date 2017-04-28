@@ -24,7 +24,6 @@ public class GalacticNumber {
     }
 
 
-
     public static class GalacticNumberBuilder{
 
         private String unit;

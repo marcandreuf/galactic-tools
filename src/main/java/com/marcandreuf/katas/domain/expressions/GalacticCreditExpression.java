@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 
-import static com.marcandreuf.katas.domain.vo.GalacticCredit.*;
+import static com.marcandreuf.katas.domain.vo.GalacticCredit.GalacticCreditBuilder;
 
 /**
  * Created by marc on 26/04/17.

@@ -5,7 +5,6 @@ import com.marcandreuf.katas.domain.vo.GalacticCredit;
 import com.marcandreuf.katas.domain.vo.GalacticNumber;
 import com.marcandreuf.katas.domain.vo.RomanNumber;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;

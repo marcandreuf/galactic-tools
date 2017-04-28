@@ -11,6 +11,10 @@ import java.util.regex.Matcher;
 
 /**
  * Created by marc on 28/04/17.
+ *
+ * This class is responsible to handle a valid galactic credit question expression.
+ *
+ * Example expression "how many Credits is glob prok Silver ?"
  */
 public class GalacticCreditsQuestion extends BaseExpression {
 

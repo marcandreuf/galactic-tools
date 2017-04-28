@@ -10,6 +10,10 @@ import java.util.regex.Matcher;
 
 /**
  * Created by marc on 28/04/17.
+ *
+ * This class is responsible to handle a valid galactic number question expression.
+ *
+ * Example expression "how much is pish tegj glob glob ?"
  */
 public class GalacticNumbersQuestion extends BaseExpression {
 

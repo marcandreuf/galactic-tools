@@ -1,6 +1,45 @@
 # galactic-tools
 Implementation of the Galactic calculator exercise using TDD and my best knowladge of software principles.
 
+## How to run
+
+The galaxy tool can be executed using the gradle application plugin. To do that we just need to clone the project into a local folder and run the following terminal commands:
+
+```
+    cd <project folder>
+    gradle run -Dexec.args="testInput.txt"
+```
+
+Or alternatively configure a Run execution in the IDE tool with the argument:
+```
+    testInput.txt
+```
+
+The output test data is written in the console and also an output file is generated at the following path.
+```
+    build/resources/main/testOutput.txt
+```
+To run the test suite of Unit and Integration tests from gradle. Open a terminal and use the following commands:
+
+```
+    cd <project-home>
+    gradle clean test
+```
+
+### Set up project
+
+1. From IDE import project as Gradle project.
+2. Import all gradle dependencies.
+3. Execute Gradle task "build".
+4. Run test cases with Gradle task "test".
+5. Enjoy :-)
+
+### The solution design:
+
+There is a [Umlet](http://www.umlet.com/) diagram in the root folder called "UmlLet_model.png" with the main class diagram of this solution.
+
+Update: The diagram is not up to date with the last implementation. I am working on it to add the last modifications.
+
 # Problem Three: Merchant's Guide to the Galaxy
 
 You decided to give up on earth after the latest financial collapse left 99.99% of the earth's population with 0.01% of the wealth. Luckily, with the scant sum of money that is left in your account, you are able to afford to rent a spaceship, leave earth, and fly all over the galaxy to sell common metals and dirt (which apparently is worth a lot).

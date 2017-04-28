@@ -15,11 +15,9 @@ public class ExpressionsRegistry {
         this.expressionTypes = expressionTypes;
     }
 
-
     public void registerExpression(Class<? extends IExpression> cls){
         expressionTypes.add(cls);
     }
-
 
     public Set<Class<? extends IExpression>> getExpressionTypes() {
         return expressionTypes;

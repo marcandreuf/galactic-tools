@@ -10,7 +10,7 @@ import java.util.Set;
  */
 public class ReaderService implements IReaderService {
 
-    public static final String SENTENCE_NOT_MATCHING = "I have no idea what you are talking about";
+    static final String SENTENCE_NOT_MATCHING = "I have no idea what you are talking about";
     private final ExpressionsRegistry expressionRegistry;
 
     public ReaderService(ExpressionsRegistry expressionRegistry) {
@@ -19,11 +19,11 @@ public class ReaderService implements IReaderService {
 
     @Override
     public IExpression read(String sentence) throws ExpressionException {
-        Set<Class<? extends IExpression>> registeredExpressions = expressionRegistry.getExpressionTypes();
-
-        for(Class expressionType : registeredExpressions){
+        for(Class<? extends IExpression> expressionType : expressionRegistry.getExpressionTypes()){
             try {
-                IExpression expression = (IExpression) expressionType.getDeclaredConstructor(String.class).newInstance(sentence);
+                IExpression expression = expressionType
+                                .getDeclaredConstructor(String.class)
+                                .newInstance(sentence);
                 if(expression.matches()){
                     return expression;
                 }
