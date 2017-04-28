@@ -43,9 +43,9 @@ public class GalacticNumberExpression extends BaseExpression {
     }
 
     @Override
-    public String resolve(GalacticCalculatorService cache) throws ExpressionException {
+    public String resolve(GalacticCalculatorService calculatorService) throws ExpressionException {
         GalacticNumber galacticNumber = tryCreateGalacticNumber(symbol, romanNum);
-        cache.register(galacticNumber);
+        calculatorService.register(galacticNumber);
         return "";
     }
 

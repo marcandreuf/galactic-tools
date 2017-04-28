@@ -26,7 +26,7 @@ public class GalacticCreditExpression extends BaseExpression {
     private static final int CS_CREDITVALUE_GROUP = 3;
 
     private final String creditName;
-    private final int statementValue;
+    private final double statementValue;
     private final List<String> lstUnits;
     private final boolean isMatch;
 
@@ -35,7 +35,7 @@ public class GalacticCreditExpression extends BaseExpression {
         Matcher creditStatementMatcher = getMatcher(sentence, CREDIT_STATEMENT_PATTERN);
         if(creditStatementMatcher.matches()){
             this.creditName = creditStatementMatcher.group(CS_CREDITNAME_GROUP).trim();
-            this.statementValue = Integer.parseInt(creditStatementMatcher.group(CS_CREDITVALUE_GROUP));
+            this.statementValue = Double.parseDouble(creditStatementMatcher.group(CS_CREDITVALUE_GROUP));
             this.lstUnits = getUnitsList(creditStatementMatcher.group(CS_UNITS_GROUP));
             this.isMatch = true;
         }else{
@@ -56,8 +56,8 @@ public class GalacticCreditExpression extends BaseExpression {
         try {
             int galacticNumbersArabicValue = calculatorService.calcArabicValue(lstUnits);
             double galacticCreditValue = statementValue / galacticNumbersArabicValue;
-            GalacticCredit galacticCredit =
-                    GalacticCreditBuilder.name(this.creditName).arabicValue(galacticCreditValue).build();
+            GalacticCredit galacticCredit = GalacticCreditBuilder
+                    .name(this.creditName).arabicValue(galacticCreditValue).build();
             calculatorService.register(galacticCredit);
             return "";
         } catch (RomanNumberException e) {

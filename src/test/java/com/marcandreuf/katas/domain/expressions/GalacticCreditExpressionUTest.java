@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import static com.marcandreuf.katas.domain.vo.GalacticCredit.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyList;
 import static org.mockito.Matchers.eq;
@@ -22,10 +23,12 @@ import static org.mockito.Mockito.when;
  */
 public class GalacticCreditExpressionUTest {
 
+    private GalacticCalculatorService mocked_calculator;
     private IExpression expression;
 
     @Before
     public void setUp(){
+        mocked_calculator = mock(GalacticCalculatorService.class);
         expression = new GalacticCreditExpression("glob glob Silver is 34 Credits");
     }
 
@@ -43,12 +46,37 @@ public class GalacticCreditExpressionUTest {
     @Test
     public void shouldResolveAGalacticCreditExpression() throws ExpressionException, RomanNumberException {
         GalacticCredit galacticCredit = GalacticCreditBuilder.name("Silver").arabicValue(17).build();
-        GalacticCalculatorService mocked_calculator = mock(GalacticCalculatorService.class);
         when(mocked_calculator.calcArabicValue(anyList())).thenReturn(2);
 
         String response = expression.resolve(mocked_calculator);
 
         assertThat(response).isEmpty();
         verify(mocked_calculator).register(eq(galacticCredit));
+    }
+
+
+    @Test
+    public void shouldResolveAnEdgeCaseGalacticCreditExpression()
+            throws Exception {
+        GalacticCredit galacticCredit = GalacticCreditBuilder.name("Silver").arabicValue(0.5).build();
+        when(mocked_calculator.calcArabicValue(anyList())).thenReturn(2);
+
+        expression = new GalacticCreditExpression("glob glob Silver is 1 Credits");
+        String response = expression.resolve(mocked_calculator);
+
+        assertThat(response).isEmpty();
+        verify(mocked_calculator).calcArabicValue(anyList());
+        verify(mocked_calculator).register(eq(galacticCredit));
+    }
+
+
+    @Test
+    public void shouldNotResolveAnExpressionIfGalacticNumbersAreNotDefined()
+            throws Exception {
+        when(mocked_calculator.calcArabicValue(anyList())).thenThrow(new RomanNumberException());
+
+        assertThatExceptionOfType(ExpressionException.class)
+                .isThrownBy(() ->  expression.resolve(mocked_calculator) );
+        verify(mocked_calculator).calcArabicValue(anyList());
     }
 }

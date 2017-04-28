@@ -14,6 +14,6 @@ import com.marcandreuf.katas.domain.services.GalacticCalculatorService;
 public interface IExpression {
 
     boolean matches();
-    String resolve(GalacticCalculatorService cache) throws ExpressionException;
+    String resolve(GalacticCalculatorService calculatorService) throws ExpressionException;
 
 }
