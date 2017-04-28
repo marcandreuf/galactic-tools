@@ -3,13 +3,12 @@ package com.marcandreuf.katas.domain.expressions;
 import com.marcandreuf.katas.domain.exceptions.ExpressionException;
 import com.marcandreuf.katas.domain.exceptions.RomanNumberException;
 import com.marcandreuf.katas.domain.services.GalacticCalculatorService;
-import com.marcandreuf.katas.domain.vo.GalacticNumber;
+import com.marcandreuf.katas.domain.vo.GalacticCredit;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyList;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -18,7 +17,7 @@ import static org.mockito.Mockito.when;
 /**
  * Created by marc on 28/04/17.
  */
-public class GalacticNumbersQuestionUTest {
+public class GalacticCreditsQuestionUTest {
 
     private IExpression matchingExpression;
     private IExpression nonMatchingExpression;
@@ -26,8 +25,8 @@ public class GalacticNumbersQuestionUTest {
 
     @Before
     public void setUp(){
-        matchingExpression = new GalacticNumbersQuestion("how much is pish tegj glob glob ?");
-        nonMatchingExpression = new GalacticNumbersQuestion("not matching question here ");
+        matchingExpression = new GalacticCreditsQuestion("how many Credits is glob prok Silver ?");
+        nonMatchingExpression = new GalacticCreditsQuestion("not matching question here ");
         mocked_calculator = mock(GalacticCalculatorService.class);
     }
 
@@ -35,7 +34,7 @@ public class GalacticNumbersQuestionUTest {
     public void shouldCreateAMatchingExpression() throws ExpressionException {
         assertThat(matchingExpression.matches()).isTrue();
 
-        nonMatchingExpression = new GalacticNumbersQuestion("how much is glob is some word ?");
+        nonMatchingExpression = new GalacticCreditsQuestion("how many Credits is glob is some word ?");
         assertThat(matchingExpression.matches()).isTrue();
     }
 
@@ -46,13 +45,15 @@ public class GalacticNumbersQuestionUTest {
 
     @Test
     public void shouldResolveAMatchingExpression() throws Exception {
-        when(mocked_calculator.calcArabicValue(anyList())).thenReturn(42);
+        when(mocked_calculator.calcArabicValue(anyList())).thenReturn(5);
+        GalacticCredit stubbedGC = GalacticCredit.GalacticCreditBuilder.name("Silver").arabicValue(3).build();
+        when(mocked_calculator.getGalacticCredit("Silver")).thenReturn(stubbedGC);
 
         String response = matchingExpression.resolve(mocked_calculator);
 
         assertThat(response).isNotEmpty();
         verify(mocked_calculator).calcArabicValue(anyList());
-        assertThat(response).isEqualTo("pish tegj glob glob is 42");
+        assertThat(response).isEqualTo("glob prok Silver is 15 Credits");
     }
 
 

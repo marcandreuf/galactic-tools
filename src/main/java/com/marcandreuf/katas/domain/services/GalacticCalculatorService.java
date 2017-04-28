@@ -37,8 +37,8 @@ public class GalacticCalculatorService {
         return galacticNumbers.stream().filter(gn -> gn.getSymbol().equals(symbol)).findFirst().get();
     }
 
-    public GalacticCredit getGalacticCredit(String symbol) {
-        return galacticCredits.stream().filter(gc -> gc.getName().equals(symbol)).findFirst().get();
+    public GalacticCredit getGalacticCredit(String name) {
+        return galacticCredits.stream().filter(gc -> gc.getName().equals(name)).findFirst().get();
     }
 
     public int calcArabicValue(List<String> galacticNumberSymbols) throws RomanNumberException {
